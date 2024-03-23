@@ -1,0 +1,358 @@
+openapi: 3.0.3
+info:
+  title: Title
+  description: Title
+  version: 1.0.0
+servers:
+  - url: 'https'
+paths:
+  /comptables:
+    get:
+      summary: List all comptables
+      operationId: listComptables
+      tags:
+        - comptables
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: A paged array of comptables
+          headers:
+            x-next:
+              type: string
+              description: A link to the next page of responses
+          schema:
+            $ref: '#/definitions/Comptables'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Create a comptable
+      operationId: createComptables
+      tags:
+        - comptables
+      responses:
+        "201":
+          description: Null response
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /comptables/{comptableId}:
+    get:
+      summary: Info for a specific comptable
+      operationId: showComptableById
+      tags:
+        - comptables
+      parameters:
+        - name: comptableId
+          in: path
+          required: true
+          description: The id of the comptable to retrieve
+          type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          schema:
+            $ref: '#/definitions/Comptables'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /societes:
+    get:
+      summary: List all societes
+      operationId: listSocietes
+      tags:
+        - societes
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: A paged array of societes
+          headers:
+            x-next:
+              type: string
+              description: A link to the next page of responses
+          schema:
+            $ref: '#/definitions/Societes'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Create a societe
+      operationId: createSocietes
+      tags:
+        - societes
+      responses:
+        "201":
+          description: Null response
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /societes/{societeId}:
+    get:
+      summary: Info for a specific societe
+      operationId: showSocieteById
+      tags:
+        - societes
+      parameters:
+        - name: societeId
+          in: path
+          required: true
+          description: The id of the societe to retrieve
+          type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          schema:
+            $ref: '#/definitions/Societes'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /demandes:
+    get:
+      summary: List all demandes
+      operationId: listDemandes
+      tags:
+        - demandes
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: A paged array of demandes
+          headers:
+            x-next:
+              type: string
+              description: A link to the next page of responses
+          schema:
+            $ref: '#/definitions/Demandes'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Create a demande
+      operationId: createDemandes
+      tags:
+        - demandes
+      responses:
+        "201":
+          description: Null response
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /demandes/{demandeId}:
+    get:
+      summary: Info for a specific demande
+      operationId: showDemandeById
+      tags:
+        - demandes
+      parameters:
+        - name: demandeId
+          in: path
+          required: true
+          description: The id of the demande to retrieve
+          type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          schema:
+            $ref: '#/definitions/Demandes'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /paiementDemandes:
+    get:
+      summary: List all paiementDemandes
+      operationId: listPaiementDemandes
+      tags:
+        - paiementDemandes
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: A paged array of paiementDemandes
+          headers:
+            x-next:
+              type: string
+              description: A link to the next page of responses
+          schema:
+            $ref: '#/definitions/PaiementDemandes'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Create a paiementDemande
+      operationId: createPaiementDemandes
+      tags:
+        - paiementDemandes
+      responses:
+        "201":
+          description: Null response
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /paiementDemandes/{paiementDemandeId}:
+    get:
+      summary: Info for a specific paiementDemande
+      operationId: showPaiementDemandeById
+      tags:
+        - paiementDemandes
+      parameters:
+        - name: paiementDemandeId
+          in: path
+          required: true
+          description: The id of the paiementDemande to retrieve
+          type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          schema:
+            $ref: '#/definitions/PaiementDemandes'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  
+
+
+definitions:
+  Comptable:
+    type: "object"
+    required:
+      - id
+      - cin
+      - prenom
+      - nom
+      - email
+      - categorieComptable
+    properties:
+      id:
+        type: int
+      cin:
+        type: string
+      prenom:
+        type: string
+      nom:
+        type: string
+      email:
+        type: string
+      categorieComptable:
+        type: string
+  Comptables:
+    type: array
+    items:
+      $ref: '#/definitions/Comptable'
+  Societe:
+    type: "object"
+    required:
+      - id
+      - code
+      - ice
+      - rc
+    properties:
+      id:
+        type: int
+      code:
+        type: string
+      ice:
+        type: string
+      rc:
+        type: string
+  Societes:
+    type: array
+    items:
+      $ref: '#/definitions/Societe'
+  Demande:
+    type: "object"
+    required:
+      - id
+      - code
+      - libelle
+      - dateDemande
+      - dateExigibilite
+      - typeDemande
+      - etatDemande
+      - dateValidation
+      - dateTraitement
+    properties:
+      id:
+        type: int
+      code:
+        type: string
+      libelle:
+        type: string
+      dateDemande:
+        type: date
+      dateExigibilite:
+        type: date
+      typeDemande:
+        type: string
+      etatDemande:
+        type: string
+      dateValidation:
+        type: date
+      dateTraitement:
+        type: date
+  Demandes:
+    type: array
+    items:
+      $ref: '#/definitions/Demande'
+  PaiementDemande:
+    type: "object"
+    required:
+      - id
+      - code
+      - libelle
+    properties:
+      id:
+        type: int
+      code:
+        type: string
+      libelle:
+        type: string
+  PaiementDemandes:
+    type: array
+    items:
+      $ref: '#/definitions/PaiementDemande'
+
+  Error:
+    type: "object"
+    required:
+      - code
+      - message
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
